@@ -38,16 +38,15 @@ storage_client = storage.Client()
 def glau_gcs_redis_func(data, context):
     file_data = data
     file_name = file_data["name"]
-    logging.info(f"The image is {file_name}");
+    logging.info(f"The file name is {file_name}");
     bucket_name = file_data["bucket"]
-    logging.info(f"The bucket_name is {bucket_name}")
+    logging.info(f"The bucket name is {bucket_name}")
     bucket = storage_client.get_bucket(bucket_name)
     blob = bucket.blob(file_name)
 
     with blob.open("r") as f:
         key = "austin_crime:"
         for file_line in f:
-            print(file_line)
             logging.info(file_line)
             # convert to JSON
             json_obj = json.loads(file_line)
