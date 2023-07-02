@@ -17,14 +17,12 @@
 import os
 
 from google.cloud import storage
-import functions_framework
 import google.cloud.logging
 import logging
 import redis
 import json
-from redis.commands.json.path import Path
 
-client = google.cloud.logging.Client(project="project")
+client = google.cloud.logging.Client(project="central-beach-194106")
 client.setup_logging()
 
 redis_host = os.environ.get("REDISHOST", "localhost")
@@ -34,7 +32,6 @@ redis_client = redis.StrictRedis(host=redis_host, port=redis_port, password=redi
 
 storage_client = storage.Client()
 
-#@functions_framework.http
 def glau_gcs_redis_func(data, context):
     file_data = data
     file_name = file_data["name"]
@@ -47,7 +44,7 @@ def glau_gcs_redis_func(data, context):
     with blob.open("r") as f:
         key = "austin_crime:"
         for file_line in f:
-            logging.info(file_line)
+            #logging.info(file_line)
             # convert to JSON
             json_obj = json.loads(file_line)
             redis_client.json().set(key+json_obj['unique_key'], '$', json_obj)
