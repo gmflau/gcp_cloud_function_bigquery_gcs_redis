@@ -2,6 +2,7 @@
 
 Deploy Cloud Function:
 ```bash
+cd python
 gcloud functions deploy glau_gcs_redis_func \
 --runtime=python311 \
 --region=us-central1 \
@@ -12,6 +13,9 @@ gcloud functions deploy glau_gcs_redis_func \
 ```
     
 Export BigQuery table to the GCS bucket "glau-test-bucket-us-central1" in JSON format.
-    
+```bash
+cd BQ_2_GCS
+python3 extract.py
+```    
 
 
