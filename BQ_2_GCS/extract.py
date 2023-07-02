@@ -6,7 +6,6 @@ bucket_name = 'glau-test-bucket-us-central1'
 now = datetime.now()
 project="bigquery-public-data"
 dataset_id="austin_311"
-dataset_id="austin_311"
 table_name="311_service_requests"
 destination_uri = "gs://{}/{}".format(bucket_name, "austin_crimes_" + now.strftime("%Y%m%d%H%M") + ".json")
 dataset_ref = bigquery.DatasetReference(project, dataset_id)
