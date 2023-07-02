@@ -38,30 +38,19 @@ storage_client = storage.Client()
 def glau_gcs_redis_func(data, context):
     file_data = data
     file_name = file_data["name"]
-    print(f"The image is {file_name}")
     logging.info(f"The image is {file_name}");
     bucket_name = file_data["bucket"]
-    print(f"The bucket_name is {bucket_name}")
     logging.info(f"The bucket_name is {bucket_name}")
     bucket = storage_client.get_bucket(bucket_name)
     blob = bucket.blob(file_name)
-    #f = blob.download_as_text(encoding="utf-8")
-    #logging.info(f"The downloaded text is {f}")
 
     with blob.open("r") as f:
         key = "austin_crime:"
-        counter = 0
         for file_line in f:
             print(file_line)
             logging.info(file_line)
             # convert to JSON
             json_obj = json.loads(file_line)
-            # use realine() to read next line
-            redis_client.set(key+str(counter), file_line)
             redis_client.json().set(key+json_obj['unique_key'], '$', json_obj)
-            counter=counter+1
-            value = redis_client.incr("visits", 1)
-            #return f"Visit count: {value}"
 
 
-# [END functions_memorystore_redis]
