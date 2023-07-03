@@ -1,6 +1,6 @@
 # gcp_cloud_function_bigquery_gcs_redis
 
-Deploy Cloud Function:
+Deploy Cloud Function:    
 Gen1:
 ```bash
 gcloud functions deploy glau_gcs_redis_func \
